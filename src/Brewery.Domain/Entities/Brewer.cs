@@ -23,11 +23,10 @@ public class Brewer
 
     public void UpdateBeer(Beer beer)
     {
-        var exisitingBeer = _beers.First(beer => beer.Id == beer.Id);
+        var exisitingBeer = _beers.First(b => b.Id == beer.Id);
         
     }
-
-
+    
     public static Brewer Create(Guid id, string name)
     {
         var brewer = new Brewer(id);
