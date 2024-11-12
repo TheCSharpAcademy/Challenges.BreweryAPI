@@ -1,6 +1,11 @@
+using Brewery.Api;
+using Brewery.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+var assemblies = AssemblyLoader.GetAssemblies();
+builder.Services.AddInfrastructure(assemblies);
 
 var app = builder.Build();
-app.MapGet("/", () => "Hello from Brewery Api!");
+app.UseInfrastructure();
 
 app.Run();
