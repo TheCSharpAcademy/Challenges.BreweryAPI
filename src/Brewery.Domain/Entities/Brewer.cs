@@ -4,6 +4,7 @@ public class Brewer
 {
     public IEnumerable<Beer> Beers => _beers;
     public Guid Id { get; private set; }
+    public Guid? BreweryId { get; private set; }
     public string Name { get; private set; }
     private readonly List<Beer> _beers = new List<Beer>();
 

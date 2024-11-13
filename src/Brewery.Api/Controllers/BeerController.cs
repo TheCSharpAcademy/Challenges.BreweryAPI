@@ -38,9 +38,9 @@ public class BeerController : BaseController
     }
 
     [HttpDelete("{beerId:guid}")]
-    public async Task<ActionResult> DeleteBeer(Guid beerId)
+    public async Task<ActionResult> DeleteBeer(DeleteBeer command, Guid beerId)
     {
-        await _commandDispatcher.DispatchAsync(new DeleteBeer(beerId));
+        await _commandDispatcher.DispatchAsync(command with { BeerId = beerId } );
         return NoContent();
     }
 }

@@ -1,17 +1,47 @@
 @url = http://localhost:5000
 
+@beerId = fd9c1c15-5425-4f46-85c1-ee43236b2e83
+@brewerId = 03464b8d-a27a-4134-996d-a5d97d1eafa5
 @breweryId = d730c80b-5680-4058-a64e-892c501cb287
 
-###
+### List all beers by brewery
 GET {{url}}/beer/{{breweryId}}
 
 ###
+GET {{url}}/beer/{{beerId}}
+
+### Brewer adds beer
 POST {{url}}/beer
 Content-Type: application/json
 
 {
+    "brewerId": "{{brewerId}}",
     "name": "beer 1",
     "unitPrice": 3.50
+}
+
+### Brewer updates beer
+PUT {{url}}/beer/{{beerId}}
+Content-Type: application/json
+
+{
+    "brewerId": "{{brewerId}}",
+    //name": ,
+    "unitPrice": 3.00
+}
+
+### Brewer deletes beer
+DELETE {{url}}/beer
+
+###
+GET {{url}}/brewer/{{brewerId}}
+
+###
+POST {{url}}/brewer
+Content-Type: application/json
+
+{
+    "name": "brewski"
 }
 
 ###

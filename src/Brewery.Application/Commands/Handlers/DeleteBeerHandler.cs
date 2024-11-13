@@ -6,21 +6,26 @@ namespace Brewery.Application.Commands.Handlers;
 
 public class DeleteBeerHandler : ICommandHandler<DeleteBeer>
 {
-    private readonly IBeerRepository _beerRepositry;
+    private readonly IBeerRepository _beerRepository;
 
     public DeleteBeerHandler(IBeerRepository beerRepositry)
     {
-        _beerRepositry = beerRepositry;
+        _beerRepository = beerRepositry;
     }
 
     public async Task HandleAsync(DeleteBeer command)
     {
-        var beer = await _beerRepositry.GetBeerById(command.Id);
+        var beer = await _beerRepository.GetBeerById(command.BeerId);
         if (beer is null)
         {
-            throw new BeerNotFoundException(command.Id);
+            throw new BeerNotFoundException(command.BeerId);
         }
-        
-        await _beerRepositry.DeleteAsync(beer);
+
+        if (beer.BrewerId != command.BrewerId)
+        {
+            throw new BeerDoesNotBelongToBrewerException(beer.Id, beer.BrewerId);
+        }
+
+        await _beerRepository.DeleteAsync(beer);
     }
 }

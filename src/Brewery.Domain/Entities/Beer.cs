@@ -13,6 +13,7 @@ public class Beer
     public Beer(Guid id, Guid brewerId)
     {
         Id = id;
+        BrewerId = brewerId;
     }
 
     public void ChangeName(string name)

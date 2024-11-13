@@ -9,9 +9,22 @@ public static class Extensions
         var beerDto = new BeerDto
         {
             Id = beer.Id,
+            BrewerId = beer.BrewerId,
             Name = beer.Name,
+            UnitPrice = beer.UnitPrice,
         };
         
         return beerDto;
+    }
+
+    public static BrewerDto AsDto(this Brewer brewer)
+    {
+        var brewerDto = new BrewerDto
+        {
+            Id = brewer.Id,
+            Name = brewer.Name,
+        };
+        
+        return brewerDto;
     }
 }

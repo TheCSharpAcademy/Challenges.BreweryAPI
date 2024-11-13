@@ -5,9 +5,10 @@ namespace Brewery.Infrastructure.EF;
 
 public class BreweryDbContext : DbContext
 {
-    public DbSet<Domain.Entities.Brewery> Breweries { get; set; }
+
     public DbSet<Beer> Beers { get; set; }
     public DbSet<Brewer> Brewers { get; set; }
+    public DbSet<Domain.Entities.Brewery> Breweries { get; set; }
 
     public BreweryDbContext(DbContextOptions<BreweryDbContext> options)
         : base(options)

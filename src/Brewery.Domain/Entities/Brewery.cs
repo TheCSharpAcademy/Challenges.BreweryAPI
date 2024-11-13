@@ -2,10 +2,10 @@
 
 public class Brewery
 {
+    private readonly List<Brewer> _brewers;
     public Guid Id { get; private set; }
     public string Name { get; private set; }
-    // public Guid BrewerId { get; private set; }
-    // public Brewer Brewer { get; private set; }
+    public IEnumerable<Brewer> Brewers => _brewers;
 
     public Brewery(Guid id)
     {
@@ -16,8 +16,16 @@ public class Brewery
     {
         Name = name;
     }
-    
-    
+
+    public void AddBrewer(Brewer brewer)
+    {
+        _brewers.Add(brewer);
+    }
+
+    public void RemoveBrewer(Brewer brewer)
+    {
+        _brewers.Remove(brewer);
+    }
 
     public static Brewery Create(Guid id, string name)
     {
