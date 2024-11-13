@@ -15,13 +15,14 @@ public class BrowseBeersByBreweryHandler : IQueryHandler<BrowseBeersByBrewery, I
     }
     public async Task<IEnumerable<BeerDto>> QueryAsync(BrowseBeersByBrewery query)
     {
-        var brewery = await _breweries
-            .AsNoTracking()
-            .Include(b => b.Beers)
-            .SingleOrDefaultAsync(b => b.Id == query.BreweryId);
-        
-        return brewery is not null 
-            ? brewery?.Beers.Select(b => b.AsDto())
-            : Enumerable.Empty<BeerDto>();
+        throw new NotImplementedException();
+        // var brewery = await _breweries
+        //     .AsNoTracking()
+        //     //.Include(b => b.Beers)
+        //     .SingleOrDefaultAsync(b => b.Id == query.BreweryId);
+        //
+        // return brewery is not null 
+        //     ? brewery?.Beers.Select(b => b.AsDto())
+        //     : Enumerable.Empty<BeerDto>();
     }
 }

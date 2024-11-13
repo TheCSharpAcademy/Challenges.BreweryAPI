@@ -2,4 +2,4 @@
 
 namespace Brewery.Application.Commands;
 
-public record UpdateBeer(Guid Id, string Name, decimal UnitPrice) : ICommand;
+public record UpdateBeer(Guid Id, string Name = null, decimal UnitPrice = default) : ICommand;

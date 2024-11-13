@@ -11,6 +11,7 @@ public static class Extensions
     internal static IServiceCollection AddEF(this IServiceCollection services)
     {
         services.AddScoped<IBreweryRepository, BreweryRepository>();
+        services.AddScoped<IBeerRepository, BeerRepository>();
 
         var postgresOptions = services.GetOptions<PostgresOptions>("postgres");
         services.AddDbContext<BreweryDbContext>(options =>

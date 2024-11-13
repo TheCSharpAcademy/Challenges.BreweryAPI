@@ -1,7 +1,6 @@
 ﻿using Brewery.Abstractions.Commands;
 using Brewery.Abstractions.Queries;
 using Brewery.Application.Commands;
-using Brewery.Application.Commands.Handlers;
 using Brewery.Application.DTO;
 using Brewery.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
