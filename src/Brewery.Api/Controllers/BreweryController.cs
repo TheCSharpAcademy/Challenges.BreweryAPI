@@ -30,14 +30,14 @@ public class BreweryController : BaseController
     public async Task<ActionResult<IEnumerable<BeerDto>>> Browse(Guid breweryId)
     {
         var beersDto = await _queryDispatcher
-            .QueryAsync(new BrowseBeers(breweryId));
+            .QueryAsync(new BrowseBeersByBrewery(breweryId));
         return Ok(beersDto);
     }
 
     [HttpPost]
     public async Task<ActionResult> Post(AddBrewery command)
     {
-        await _commandDispatcher.DispatchAsync(command with { Id = Guid.NewGuid() });
+        await _commandDispatcher.DispatchAsync(command);
         return CreatedAtAction(nameof(Get), new { breweryId = command.Id }, null);
     }
 }

@@ -1,1 +1,29 @@
-@url = http://localhost:5000/brewery
+@url = http://localhost:5000
+
+@breweryId = d730c80b-5680-4058-a64e-892c501cb287
+
+###
+GET {{url}}/beer/{{breweryId}}
+
+###
+POST {{url}}/beer
+Content-Type: application/json
+
+{
+    "name": "beer 1",
+    "unitPrice": 3.50
+}
+
+###
+GET {{url}}/brewery/{{breweryId}}
+
+###
+GET {{url}}/brewery/{{breweryId}}/beers
+
+###
+POST {{url}}/brewery
+Content-Type: application/json
+
+{
+    "name": "brewery 2"
+}
