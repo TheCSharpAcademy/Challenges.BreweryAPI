@@ -22,12 +22,11 @@ public class Brewer
     public void DeleteBeer(Beer beer)
         => _beers.Remove(beer);
 
-    public void UpdateBeer(Beer beer)
+    public void ChangeBreweryId(Guid breweryId)
     {
-        var exisitingBeer = _beers.First(b => b.Id == beer.Id);
-        
+        BreweryId = breweryId;
     }
-    
+
     public static Brewer Create(Guid id, string name)
     {
         var brewer = new Brewer(id);

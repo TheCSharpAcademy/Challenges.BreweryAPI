@@ -2,7 +2,7 @@
 
 public class Brewery
 {
-    private readonly List<Brewer> _brewers;
+    private readonly List<Brewer> _brewers = new List<Brewer>();
     public Guid Id { get; private set; }
     public string Name { get; private set; }
     public IEnumerable<Brewer> Brewers => _brewers;

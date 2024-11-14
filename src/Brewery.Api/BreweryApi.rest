@@ -26,12 +26,17 @@ Content-Type: application/json
 
 {
     "brewerId": "{{brewerId}}",
-    //name": ,
-    "unitPrice": 3.00
+    "name": "super beer 1",
+    "unitPrice": 8.00
 }
 
 ### Brewer deletes beer
-DELETE {{url}}/beer
+DELETE {{url}}/beer/{{beerId}}
+Content-Type: application/json
+
+{
+    "brewerId": "{{brewerId}}"
+}
 
 ###
 GET {{url}}/brewer/{{brewerId}}
@@ -41,7 +46,8 @@ POST {{url}}/brewer
 Content-Type: application/json
 
 {
-    "name": "brewski"
+    "name": "brewski 2",
+    "breweryId": "{{breweryId}}"
 }
 
 ###

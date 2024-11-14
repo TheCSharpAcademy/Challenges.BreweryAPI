@@ -2,7 +2,7 @@
 
 namespace Brewery.Application.Commands;
 
-public record AddBrewer(string Name) : ICommand
+public record AddBrewer(string Name, Guid BreweryId = default) : ICommand
 {
     public Guid Id { get; } = Guid.NewGuid();
 }
