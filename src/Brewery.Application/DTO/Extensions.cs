@@ -27,4 +27,11 @@ public static class Extensions
         
         return brewerDto;
     }
+
+    public static WholesalerDto AsDto(this Wholesaler wholesaler)
+        => new WholesalerDto
+        {
+            Id = wholesaler.Id,
+            Name = wholesaler.Name,
+        };
 }
