@@ -10,7 +10,8 @@ public class BreweryDbContext : DbContext
     public DbSet<Brewer> Brewers { get; set; }
     public DbSet<Domain.Entities.Brewery> Breweries { get; set; }
     public DbSet<Wholesaler> Wholesalers { get; set; }
-    public DbSet<Sale> Sales { get; set; }
+    public DbSet<BeerSale> BeerSales { get; set; }
+    public DbSet<BeerStock> BeerStocks { get; set; }
 
     public BreweryDbContext(DbContextOptions<BreweryDbContext> options)
         : base(options)

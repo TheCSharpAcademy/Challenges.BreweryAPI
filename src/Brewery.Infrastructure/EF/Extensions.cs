@@ -15,6 +15,7 @@ public static class Extensions
         services.AddScoped<IBreweryRepository, BreweryRepository>();
         services.AddScoped<IWholesalerRepository, WholesalerRepository>();
         services.AddScoped<ISaleRepository, SaleRepository>();
+        services.AddScoped<IBeerStockRepository, BeerStockRepository>();
         
         var postgresOptions = services.GetOptions<PostgresOptions>("postgres");
         services.AddDbContext<BreweryDbContext>(options =>

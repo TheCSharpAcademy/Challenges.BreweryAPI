@@ -1,5 +1,4 @@
-﻿
-using Brewery.Abstractions.Commands;
+﻿using Brewery.Abstractions.Commands;
 
 namespace Brewery.Application.Commands;
 

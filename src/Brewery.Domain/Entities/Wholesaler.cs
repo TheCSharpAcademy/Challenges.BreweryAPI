@@ -4,8 +4,8 @@ public class Wholesaler
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
-    private readonly HashSet<Sale> _beers = new();
-    public IEnumerable<Sale> Beers => _beers;
+    private readonly HashSet<BeerSale> _beerSales = new();
+    public IEnumerable<BeerSale> BeerSales => _beerSales;
 
     public Wholesaler(Guid id)
     {
@@ -15,14 +15,14 @@ public class Wholesaler
     public void ChangeName(string name)
         => Name = name;
 
-    public void AddBeerSale(Sale sale)
+    public void AddBeerSale(BeerSale beerSale)
     {
-        _beers.Add(sale);
+        _beerSales.Add(beerSale);
     }
 
-    public void RemoveBeerSale(Sale sale)
+    public void RemoveBeerSale(BeerSale beerSale)
     {
-        _beers.Remove(sale);
+        _beerSales.Remove(beerSale);
     }
 
     public static Wholesaler Create(Guid id, string name)

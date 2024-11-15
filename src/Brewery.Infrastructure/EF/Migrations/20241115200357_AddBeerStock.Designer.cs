@@ -3,6 +3,7 @@ using System;
 using Brewery.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Brewery.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(BreweryDbContext))]
-    partial class BreweryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241115200357_AddBeerStock")]
+    partial class AddBeerStock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,15 +80,10 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.Property<Guid>("BeerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BrewerId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BrewerId");
 
                     b.ToTable("BeerStocks", "brewery");
                 });
@@ -156,13 +154,6 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .HasForeignKey("WholesalerId");
                 });
 
-            modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
-                {
-                    b.HasOne("Brewery.Domain.Entities.Brewer", null)
-                        .WithMany("BeerStocks")
-                        .HasForeignKey("BrewerId");
-                });
-
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
                 {
                     b.HasOne("Brewery.Domain.Entities.Brewery", null)
@@ -172,8 +163,6 @@ namespace Brewery.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
                 {
-                    b.Navigation("BeerStocks");
-
                     b.Navigation("Beers");
                 });
 

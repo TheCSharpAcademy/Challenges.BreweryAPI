@@ -2,13 +2,13 @@
 
 namespace Brewery.Domain.Entities;
 
-public class Sale
+public class BeerStock
 {
     public Guid Id { get; private set; }
     public Guid BeerId { get; private set; }
     public int Quantity { get; private set; }
-
-    public Sale(Guid id, Guid beerId)
+    
+    public BeerStock(Guid id, Guid beerId)
     {
         Id = id;
         BeerId = beerId;
@@ -29,21 +29,21 @@ public class Sale
         Quantity += quantity;
     }
 
-    public void TakeBeer(int quantity)
+    public void TakeForBeerSale(int quantity)
     {
         if (Quantity < quantity)
         {
-            throw new NotEnoughBeerToSellException(quantity);
+            throw new NotEnoughBeerToTakeException(quantity);
         }
         
         Quantity -= quantity;
     }
 
-    public static Sale Create(Guid id, Guid beerId, int quantity)
+    public static BeerStock Create(Guid id, Guid beerId, int quantity)
     {
-        var sale = new Sale(id, beerId);
-        sale.RestockBeer(beerId, quantity);
+        var beerStock = new BeerStock(id, beerId);
+        beerStock.RestockBeer(beerId, quantity);
         
-        return sale;
+        return beerStock;
     }
 }

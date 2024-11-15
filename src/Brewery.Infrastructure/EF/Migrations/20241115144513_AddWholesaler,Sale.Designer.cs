@@ -3,6 +3,7 @@ using System;
 using Brewery.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Brewery.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(BreweryDbContext))]
-    partial class BreweryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241115144513_AddWholesaler,Sale")]
+    partial class AddWholesalerSale
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,50 +47,6 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.HasIndex("BrewerId");
 
                     b.ToTable("Beers", "brewery");
-                });
-
-            modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BeerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("WholesalerId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WholesalerId");
-
-                    b.ToTable("BeerSales", "brewery");
-                });
-
-            modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BeerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("BrewerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrewerId");
-
-                    b.ToTable("BeerStocks", "brewery");
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
@@ -125,6 +84,28 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.ToTable("Breweries", "brewery");
                 });
 
+            modelBuilder.Entity("Brewery.Domain.Entities.Sale", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BeerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("WholesalerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WholesalerId");
+
+                    b.ToTable("Sales", "brewery");
+                });
+
             modelBuilder.Entity("Brewery.Domain.Entities.Wholesaler", b =>
                 {
                     b.Property<Guid>("Id")
@@ -149,20 +130,6 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
-                {
-                    b.HasOne("Brewery.Domain.Entities.Wholesaler", null)
-                        .WithMany("BeerSales")
-                        .HasForeignKey("WholesalerId");
-                });
-
-            modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
-                {
-                    b.HasOne("Brewery.Domain.Entities.Brewer", null)
-                        .WithMany("BeerStocks")
-                        .HasForeignKey("BrewerId");
-                });
-
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
                 {
                     b.HasOne("Brewery.Domain.Entities.Brewery", null)
@@ -170,10 +137,15 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .HasForeignKey("BreweryId");
                 });
 
+            modelBuilder.Entity("Brewery.Domain.Entities.Sale", b =>
+                {
+                    b.HasOne("Brewery.Domain.Entities.Wholesaler", null)
+                        .WithMany("Beers")
+                        .HasForeignKey("WholesalerId");
+                });
+
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
                 {
-                    b.Navigation("BeerStocks");
-
                     b.Navigation("Beers");
                 });
 
@@ -184,7 +156,7 @@ namespace Brewery.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Brewery.Domain.Entities.Wholesaler", b =>
                 {
-                    b.Navigation("BeerSales");
+                    b.Navigation("Beers");
                 });
 #pragma warning restore 612, 618
         }

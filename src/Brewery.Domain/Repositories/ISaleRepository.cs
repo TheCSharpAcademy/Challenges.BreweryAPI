@@ -4,8 +4,9 @@ namespace Brewery.Domain.Repositories;
 
 public interface ISaleRepository
 {
-    Task AddAsync(Sale sale);
-    Task DeleteAsync(Sale sale);
-    Task<Sale> GetSaleByBeerId(Guid beerId);
+    Task AddAsync(BeerSale beerSale);
+    Task UpdateAsync(BeerSale beerSale);
+    Task DeleteAsync(BeerSale beerSale);
+    Task<BeerSale> GetSaleByBeerId(Guid beerId);
     
 }

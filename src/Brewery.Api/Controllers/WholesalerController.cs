@@ -3,7 +3,6 @@ using Brewery.Abstractions.Queries;
 using Brewery.Application.Commands;
 using Brewery.Application.DTO;
 using Brewery.Application.Queries;
-using Brewery.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brewery.Api.Controllers;
@@ -21,19 +20,21 @@ public class WholesalerController : BaseController
 
     [HttpGet("{wholesalerId:guid}")]
     public async Task<ActionResult<WholesalerDto>> Get(Guid wholesalerId)
-        => Ok(_queryDispatcher.QueryAsync(new GetWholesaler(wholesalerId)));
+    {
+        return Ok(await _queryDispatcher.QueryAsync(new GetWholesaler(wholesalerId)));
+    }
 
     [HttpPost]
     public async Task<ActionResult> Post(AddWholesaler command)
     {
         await _commandDispatcher.DispatchAsync(command);
-        return CreatedAtAction(nameof(Get), new { wholesaleerId = command.Id }, null);
+        return CreatedAtAction(nameof(Get), new { wholesalerId = command.Id }, null);
     }
 
     [HttpPost("{wholesalerId:guid}/sale")]
-    public async Task<ActionResult> AddSale(AddBeerSale command)
+    public async Task<ActionResult> AddSale(AddBeerSale command, Guid wholesalerId)
     {
-        await _commandDispatcher.DispatchAsync(command);
+        await _commandDispatcher.DispatchAsync(command with { WholesalerId = wholesalerId });
         return NoContent();
     }
 }
