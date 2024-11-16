@@ -36,14 +36,53 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BrewerId");
 
                     b.ToTable("Beers", "brewery");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerOrder", b =>
+                {
+                    b.Property<Guid>("BeerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BeerQuoteId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("BeerId");
+
+                    b.HasIndex("BeerQuoteId");
+
+                    b.ToTable("BeerOrder", "brewery");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerQuote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DiscountInPercent")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BeerQuotes", "brewery");
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
@@ -58,7 +97,10 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("WholesalerId")
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("WholesalerId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -77,11 +119,14 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.Property<Guid>("BeerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BrewerId")
+                    b.Property<Guid>("BrewerId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -149,18 +194,29 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerOrder", b =>
+                {
+                    b.HasOne("Brewery.Domain.Entities.BeerQuote", null)
+                        .WithMany("BeerOrders")
+                        .HasForeignKey("BeerQuoteId");
+                });
+
             modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
                 {
                     b.HasOne("Brewery.Domain.Entities.Wholesaler", null)
                         .WithMany("BeerSales")
-                        .HasForeignKey("WholesalerId");
+                        .HasForeignKey("WholesalerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
                 {
                     b.HasOne("Brewery.Domain.Entities.Brewer", null)
                         .WithMany("BeerStocks")
-                        .HasForeignKey("BrewerId");
+                        .HasForeignKey("BrewerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
@@ -168,6 +224,11 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.HasOne("Brewery.Domain.Entities.Brewery", null)
                         .WithMany("Brewers")
                         .HasForeignKey("BreweryId");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerQuote", b =>
+                {
+                    b.Navigation("BeerOrders");
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>

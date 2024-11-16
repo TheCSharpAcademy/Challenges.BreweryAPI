@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Brewery.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(BreweryDbContext))]
-    [Migration("20241113185859_EditBrewer,Brewery")]
-    partial class EditBrewerBrewery
+    [Migration("20241115202730_EditBeerToRemoveUnitPrice")]
+    partial class EditBeerToRemoveUnitPrice
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,50 @@ namespace Brewery.Infrastructure.EF.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrewerId");
+
+                    b.ToTable("Beers", "brewery");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BeerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("WholesalerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WholesalerId");
+
+                    b.ToTable("BeerSales", "brewery");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BeerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BrewerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("numeric");
 
@@ -46,7 +90,7 @@ namespace Brewery.Infrastructure.EF.Migrations
 
                     b.HasIndex("BrewerId");
 
-                    b.ToTable("Beers", "brewery");
+                    b.ToTable("BeerStocks", "brewery");
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
@@ -84,10 +128,41 @@ namespace Brewery.Infrastructure.EF.Migrations
                     b.ToTable("Breweries", "brewery");
                 });
 
+            modelBuilder.Entity("Brewery.Domain.Entities.Wholesaler", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wholesalers", "brewery");
+                });
+
             modelBuilder.Entity("Brewery.Domain.Entities.Beer", b =>
                 {
                     b.HasOne("Brewery.Domain.Entities.Brewer", null)
                         .WithMany("Beers")
+                        .HasForeignKey("BrewerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerSale", b =>
+                {
+                    b.HasOne("Brewery.Domain.Entities.Wholesaler", null)
+                        .WithMany("BeerSales")
+                        .HasForeignKey("WholesalerId");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.BeerStock", b =>
+                {
+                    b.HasOne("Brewery.Domain.Entities.Brewer", null)
+                        .WithMany("BeerStocks")
                         .HasForeignKey("BrewerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -102,12 +177,19 @@ namespace Brewery.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewer", b =>
                 {
+                    b.Navigation("BeerStocks");
+
                     b.Navigation("Beers");
                 });
 
             modelBuilder.Entity("Brewery.Domain.Entities.Brewery", b =>
                 {
                     b.Navigation("Brewers");
+                });
+
+            modelBuilder.Entity("Brewery.Domain.Entities.Wholesaler", b =>
+                {
+                    b.Navigation("BeerSales");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,4 +25,9 @@ public class AppInitializer : BackgroundService
             await dbContext.Database.MigrateAsync();
         }
     }
+
+    private async Task SeedDatabase()
+    {
+        
+    }
 }

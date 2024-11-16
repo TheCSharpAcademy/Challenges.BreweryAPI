@@ -39,12 +39,7 @@ public record UpdateBeerHandler : ICommandHandler<UpdateBeer>
         {
             beer.ChangeName(command.Name);
         }
-
-        if (command.UnitPrice != 0)
-        {
-            beer.SetPrice(command.UnitPrice);
-        }
-
+        
         await _beerRepository.UpdateAsync(beer);
     }
 }

@@ -6,12 +6,15 @@ public class BeerSale
 {
     public Guid Id { get; private set; }
     public Guid BeerId { get; private set; }
+    public Guid WholesalerId { get; private set; }
     public int Quantity { get; private set; }
+    public decimal UnitPrice { get; private set; }
 
-    public BeerSale(Guid id, Guid beerId)
+    public BeerSale(Guid id, Guid beerId, Guid wholesalerId)
     {
         Id = id;
         BeerId = beerId;
+        WholesalerId = wholesalerId;
     }
 
     public void RestockBeer(Guid beerId, int quantity)
@@ -39,10 +42,11 @@ public class BeerSale
         Quantity -= quantity;
     }
 
-    public static BeerSale Create(Guid id, Guid beerId, int quantity)
+    public static BeerSale Create(Guid id, Guid beerId, Guid wholesalerId, int quantity, decimal unitPrice)
     {
-        var sale = new BeerSale(id, beerId);
+        var sale = new BeerSale(id, beerId, wholesalerId);
         sale.RestockBeer(beerId, quantity);
+        sale.UnitPrice = unitPrice;
         
         return sale;
     }

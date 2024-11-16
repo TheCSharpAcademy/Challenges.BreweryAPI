@@ -1,11 +1,16 @@
 @url = http://localhost:5000
 
-@beerId = fd9c1c15-5425-4f46-85c1-ee43236b2e83
-@brewerId = 03464b8d-a27a-4134-996d-a5d97d1eafa5
-@breweryId = d730c80b-5680-4058-a64e-892c501cb287
+@beerId = a547da0f-15ef-487a-bf31-b28eccdec50b
+@beerId2 = 4fc96048-6ee6-403f-b4c5-647aced09499
+@beerId3 = 8a7f0585-03a2-4295-91f4-99e4b6f829e1
+@beerStockId = 4f79410c-ce39-47d3-91f3-c726a26aaba4
+@brewerId = 21281174-0a8b-4097-badf-603bab276b9c
+@breweryId = 1d91c9f4-61df-4787-9ed6-aa065c2ba8bc
+@wholesalerId = c8c4d2a4-a85d-416b-b052-dc1f331f2237
+@beerQuoteId = f6f00152-986d-441c-8662-27e01e279a8e
 
 ### List all beers by brewery
-GET {{url}}/beer/{{breweryId}}
+GET {{url}}/brewery/{{breweryId}}/beers
 
 ###
 GET {{url}}/beer/{{beerId}}
@@ -16,8 +21,7 @@ Content-Type: application/json
 
 {
     "brewerId": "{{brewerId}}",
-    "name": "beer 1",
-    "unitPrice": 3.50
+    "name": "beer 3"
 }
 
 ### Brewer updates beer
@@ -38,6 +42,16 @@ Content-Type: application/json
     "brewerId": "{{brewerId}}"
 }
 
+### Brewer adds beerStock
+POST {{url}}/beerstock/{{brewerId}}
+Content-Type: application/json
+
+{
+    "beerId": "{{beerId2}}",
+    "quantity": 100,
+    "unitPrice": 5
+}
+
 ###
 GET {{url}}/brewer/{{brewerId}}
 
@@ -46,7 +60,7 @@ POST {{url}}/brewer
 Content-Type: application/json
 
 {
-    "name": "brewski 2",
+    "name": "brewski 1",
     "breweryId": "{{breweryId}}"
 }
 
@@ -61,5 +75,40 @@ POST {{url}}/brewery
 Content-Type: application/json
 
 {
-    "name": "brewery 2"
+    "name": "brewery 1"
+}
+
+//Add wholesaler
+###
+POST {{url}}/wholesaler
+Content-Type: application/json
+
+{
+    "name": "wholesaler 1"
+}
+
+//Add sale to wholesaler
+###
+POST {{url}}/wholesaler/{{wholesalerId}}/sale
+Content-Type: application/json
+
+{
+    "beerId": "{{beerId2}}",
+    "quantity": 50
+}
+
+###
+GET {{url}}/beerQuote/{{beerQuoteId}}
+
+//Request quote
+###
+POST {{url}}/beerQuote
+Content-Type: application/json
+
+{
+    "wholesalerId": "{{wholesalerId}}",
+    "beersEnquiry": [ 
+        { "beerId": "{{beerId}}", "requiredQuantity": 30 },
+        { "beerId": "{{beerId2}}", "requiredQuantity": 10 }
+     ]
 }

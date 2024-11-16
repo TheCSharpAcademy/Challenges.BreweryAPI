@@ -5,27 +5,27 @@
 namespace Brewery.Infrastructure.EF.Migrations
 {
     /// <inheritdoc />
-    public partial class EditBeer : Migration
+    public partial class EditBeerSaleToAddUnitPrice : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
+            migrationBuilder.AddColumn<decimal>(
+                name: "UnitPrice",
                 schema: "brewery",
-                table: "Beers",
-                type: "text",
+                table: "BeerSales",
+                type: "numeric",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0m);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Name",
+                name: "UnitPrice",
                 schema: "brewery",
-                table: "Beers");
+                table: "BeerSales");
         }
     }
 }

@@ -2,11 +2,10 @@
 
 namespace Brewery.Domain.Repositories;
 
-public interface ISaleRepository
+public interface IBeerSaleRepository
 {
     Task AddAsync(BeerSale beerSale);
     Task UpdateAsync(BeerSale beerSale);
     Task DeleteAsync(BeerSale beerSale);
-    Task<BeerSale> GetSaleByBeerId(Guid beerId);
-    
+    Task<IEnumerable<BeerSale>> BrowseByBeerId(Guid beerId);
 }
