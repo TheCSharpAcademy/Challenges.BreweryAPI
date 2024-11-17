@@ -2,7 +2,7 @@
 
 namespace Brewery.Application.Commands;
 
-public record AddBeer(Guid BrewerId, string Name, decimal UnitPrice) : ICommand
+public record AddBeer(Guid BrewerId, string Name) : ICommand
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
 }

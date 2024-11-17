@@ -20,7 +20,7 @@ public class Beer
         Name = name;
     }
     
-    public static Beer Create(Guid id, Guid brewerId, string name, decimal unitPrice)
+    public static Beer Create(Guid id, Guid brewerId, string name)
     {
         var beer = new Beer(id, brewerId);
         beer.ChangeName(name);

@@ -36,7 +36,6 @@ public class AddBrewerHandler : ICommandHandler<AddBrewer>
 
             brewer.ChangeBreweryId(brewery.Id);
         }
-
         
         await _brewerRepository.AddBrewer(brewer);
     }

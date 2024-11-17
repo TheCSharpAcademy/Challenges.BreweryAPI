@@ -31,7 +31,7 @@ public class AddBeerHandler : ICommandHandler<AddBeer>
             throw new BeerAlreadyExistException(command.Id);
         }
         
-        beer = Beer.Create(command.Id, brewer.Id, command.Name, command.UnitPrice);
+        beer = Beer.Create(command.Id, brewer.Id, command.Name);
         
         await _beerRepository.AddAsync(beer);
     }

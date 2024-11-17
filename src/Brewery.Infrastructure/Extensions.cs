@@ -29,7 +29,7 @@ public static class Extensions
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
-        app.UseExceptionHandling();
+        //app.UseExceptionHandling();
         app.UseRouting();
         app.UseEndpoints(e =>
         {
