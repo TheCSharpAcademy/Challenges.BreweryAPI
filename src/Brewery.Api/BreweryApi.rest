@@ -2,13 +2,35 @@
 
 @beerId = a547da0f-15ef-487a-bf31-b28eccdec50b
 @beerId2 = 4fc96048-6ee6-403f-b4c5-647aced09499
-@beerId3 = 8a7f0585-03a2-4295-91f4-99e4b6f829e1
+@beerId3 = 356907d4-9d76-4e2f-84c4-3deb5518d78d
 @beerStockId = 4f79410c-ce39-47d3-91f3-c726a26aaba4
 @brewerId = 21281174-0a8b-4097-badf-603bab276b9c
 @breweryId = 1d91c9f4-61df-4787-9ed6-aa065c2ba8bc
 @wholesalerId = c8c4d2a4-a85d-416b-b052-dc1f331f2237
 @beerQuoteId = f6f00152-986d-441c-8662-27e01e279a8e
 
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZmJiNWU4MC1kNTNmLTQwODMtYTE3OC0wOTYxYzIzZTAyODkiLCJ1bmlxdWVfbmFtZSI6IjZmYmI1ZTgwLWQ1M2YtNDA4My1hMTc4LTA5NjFjMjNlMDI4OSIsImp0aSI6ImVmMDhiMDNkLTg4ZTItNDFjNS04NWIyLTU3YTFhNzZmOTA1YSIsImlhdCI6IjE3MzIwMTMxOTA1NzYiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwicGVybWlzc2lvbnMiOlsiYnJld2VyeSIsImJyZXdlciIsImJlZXIiXSwibmJmIjoxNzMyMDEzMTkwLCJleHAiOjE3Mzk3ODkxOTAsImlzcyI6ImJyZXdlcnkifQ.DTOkX2V3KTzeDFzBUFywHNGXp8Og_RpC1QSOUt0q2t8
+
+### Sign Up
+POST {{url}}/account/signUp
+Content-Type: application/json
+
+{
+    "email": "user@brewery.com",
+    "password": "secretBeer",
+    "role": "user",
+    "claims": { "permissions": ["brewery", "brewer", "beer"] }
+}
+
+### Sign In
+POST {{url}}/account/signIn
+Content-Type: application/json
+
+{
+    "email": "user@brewery.com",
+    "password": "secretBeer"
+}
+ 
 ### List all beers by brewery
 GET {{url}}/brewery/{{breweryId}}/beers
 
@@ -25,17 +47,16 @@ Content-Type: application/json
 }
 
 ### Brewer updates beer
-PUT {{url}}/beer/{{beerId}}
+PUT {{url}}/beer/{{beerId3}}
 Content-Type: application/json
 
 {
     "brewerId": "{{brewerId}}",
-    "name": "super beer 1",
-    "unitPrice": 8.00
+    "name": "super beer 3"
 }
 
 ### Brewer deletes beer
-DELETE {{url}}/beer/{{beerId}}
+DELETE {{url}}/beer/{{beerId3}}
 Content-Type: application/json
 
 {
@@ -70,12 +91,13 @@ GET {{url}}/brewery/{{breweryId}}
 ###
 GET {{url}}/brewery/{{breweryId}}/beers
 
+//Add Brewery
 ###
 POST {{url}}/brewery
 Content-Type: application/json
 
 {
-    "name": "brewery 1"
+    "name": "brewery 333"
 }
 
 //Add wholesaler
@@ -108,7 +130,7 @@ Content-Type: application/json
 {
     "wholesalerId": "{{wholesalerId}}",
     "beersEnquiry": [ 
-        { "beerId": "{{beerId}}", "requiredQuantity": 30 },
-        { "beerId": "{{beerId2}}", "requiredQuantity": 10 }
+        { "beerId": "{{beerId}}", "requiredQuantity": 10 },
+        { "beerId": "{{beerId2}}", "requiredQuantity": 100 }
      ]
 }

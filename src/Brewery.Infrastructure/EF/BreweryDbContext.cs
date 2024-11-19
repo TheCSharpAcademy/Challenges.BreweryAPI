@@ -14,6 +14,7 @@ public class BreweryDbContext : DbContext
     public DbSet<BeerStock> BeerStocks { get; set; }
     public DbSet<BeerOrder> BeerOrder { get; set; }
     public DbSet<BeerQuote> BeerQuotes { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public BreweryDbContext(DbContextOptions<BreweryDbContext> options)
         : base(options)

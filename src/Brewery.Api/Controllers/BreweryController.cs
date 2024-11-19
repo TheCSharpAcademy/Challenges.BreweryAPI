@@ -18,14 +18,14 @@ public class BreweryController : BaseController
         _commandDispatcher = commandDispatcher;
         _queryDispatcher = queryDispatcher;
     }
-
+    
     [HttpGet("{breweryId:guid}")]
     public async Task<ActionResult<BreweryDto>> Get(Guid breweryId)
     {
         var brewery = await _queryDispatcher.QueryAsync(new GetBrewery(breweryId));
         return OkOrNotFound(brewery);
     }
-
+    
     [HttpGet("{breweryId:guid}/beers")]
     public async Task<ActionResult<IEnumerable<BeerDto>>> Browse(Guid breweryId)
     {
@@ -33,7 +33,7 @@ public class BreweryController : BaseController
             .QueryAsync(new BrowseBeersByBrewery(breweryId));
         return Ok(beersDto);
     }
-
+    
     [HttpPost]
     public async Task<ActionResult> Post(AddBrewery command)
     {

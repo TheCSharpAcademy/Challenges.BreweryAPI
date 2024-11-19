@@ -9,5 +9,5 @@
     <ItemGroup>
       <ProjectReference Include="..\Brewery.Domain\Brewery.Domain.csproj" />
     </ItemGroup>
-
+    
 </Project>

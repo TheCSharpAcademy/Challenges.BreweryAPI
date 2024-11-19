@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using Brewery.Infrastructure.Auth;
 using Brewery.Infrastructure.Commands;
+using Brewery.Infrastructure.Contexts;
 using Brewery.Infrastructure.EF;
 using Brewery.Infrastructure.Exceptions;
 using Brewery.Infrastructure.Middleware;
@@ -16,6 +18,9 @@ public static class Extensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IList<Assembly> assemblies)
     {
+        services.AddAuth();
+        services.AddContexts();
+        services.AddControllers();
         services.AddExceptionHanding();
         services.AddControllers();
         services.AddHostedService<AppInitializer>();
@@ -29,8 +34,10 @@ public static class Extensions
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
-        //app.UseExceptionHandling();
+        app.UseAuthentication();
+        app.UseExceptionHandling();
         app.UseRouting();
+        app.UseAuthorization();
         app.UseEndpoints(e =>
         {
             e.MapControllers();

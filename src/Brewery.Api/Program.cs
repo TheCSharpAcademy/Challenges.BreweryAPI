@@ -1,5 +1,9 @@
 using Brewery.Api;
 using Brewery.Infrastructure;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Primitives;
+using Results = Microsoft.AspNetCore.Http.Results;
 
 public class Program
 {

@@ -23,4 +23,16 @@ public class AddBreweryHandler : ICommandHandler<AddBrewery>
         brewery = Domain.Entities.Brewery.Create(command.Id, command.Name);
         await _breweryRepository.AddBrewery(brewery);
     }
+
+    public async Task Handle(AddBrewery request, CancellationToken cancellationToken)
+    {
+        var brewery = await _breweryRepository.GetBreweryById(request.Id);
+        if (brewery is not null)
+        {
+            
+        }
+        
+        brewery = Domain.Entities.Brewery.Create(request.Id, request.Name);
+        await _breweryRepository.AddBrewery(brewery);
+    }
 }
