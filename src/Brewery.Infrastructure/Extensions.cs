@@ -4,6 +4,7 @@ using Brewery.Infrastructure.Commands;
 using Brewery.Infrastructure.Contexts;
 using Brewery.Infrastructure.EF;
 using Brewery.Infrastructure.Exceptions;
+using Brewery.Infrastructure.Messaging;
 using Brewery.Infrastructure.Middleware;
 using Brewery.Infrastructure.Queries;
 using Brewery.Infrastructure.Services;
@@ -22,12 +23,12 @@ public static class Extensions
         services.AddContexts();
         services.AddControllers();
         services.AddExceptionHanding();
-        services.AddControllers();
         services.AddHostedService<AppInitializer>();
         services.AddSingleton<EndpointsInfoMiddleware>();
         services.AddEF();
         services.AddCommands(assemblies);
         services.AddQueries(assemblies);
+        services.AddRabbitMq();
         
         return services;
     }

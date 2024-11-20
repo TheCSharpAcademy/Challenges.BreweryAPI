@@ -1,6 +1,8 @@
-﻿namespace Brewery.Abstractions.Commands;
+﻿using Brewery.Abstractions.Messaging;
 
-public interface ICommand
+namespace Brewery.Abstractions.Commands;
+
+public interface ICommand : IMessage
 {
     
 }

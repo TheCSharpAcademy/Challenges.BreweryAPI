@@ -11,6 +11,9 @@
 
 @accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZmJiNWU4MC1kNTNmLTQwODMtYTE3OC0wOTYxYzIzZTAyODkiLCJ1bmlxdWVfbmFtZSI6IjZmYmI1ZTgwLWQ1M2YtNDA4My1hMTc4LTA5NjFjMjNlMDI4OSIsImp0aSI6ImVmMDhiMDNkLTg4ZTItNDFjNS04NWIyLTU3YTFhNzZmOTA1YSIsImlhdCI6IjE3MzIwMTMxOTA1NzYiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwicGVybWlzc2lvbnMiOlsiYnJld2VyeSIsImJyZXdlciIsImJlZXIiXSwibmJmIjoxNzMyMDEzMTkwLCJleHAiOjE3Mzk3ODkxOTAsImlzcyI6ImJyZXdlcnkifQ.DTOkX2V3KTzeDFzBUFywHNGXp8Og_RpC1QSOUt0q2t8
 
+### testEnd
+GET {{url}}/testEnd
+
 ### Sign Up
 POST {{url}}/account/signUp
 Content-Type: application/json
@@ -30,6 +33,10 @@ Content-Type: application/json
     "email": "user@brewery.com",
     "password": "secretBeer"
 }
+
+### Get Account Info
+GET {{url}}/account
+//Authorization: Bearer {{accessToken}}
  
 ### List all beers by brewery
 GET {{url}}/brewery/{{breweryId}}/beers
@@ -76,7 +83,7 @@ Content-Type: application/json
 ###
 GET {{url}}/brewer/{{brewerId}}
 
-###
+### Add brewer
 POST {{url}}/brewer
 Content-Type: application/json
 
@@ -91,13 +98,13 @@ GET {{url}}/brewery/{{breweryId}}
 ###
 GET {{url}}/brewery/{{breweryId}}/beers
 
-//Add Brewery
-###
+### Add Brewery
 POST {{url}}/brewery
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-    "name": "brewery 333"
+    "name": "brewery with Auth"
 }
 
 //Add wholesaler

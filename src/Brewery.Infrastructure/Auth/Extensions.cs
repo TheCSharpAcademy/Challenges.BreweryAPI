@@ -22,7 +22,7 @@ public static class Extensions
             ValidateIssuer = authOptions.ValidateIssuer,
             ValidateAudience = authOptions.ValidateAudience,
             ValidateLifetime = authOptions.ValidateLifetime,
-            ClockSkew = TimeSpan.Zero
+            ClockSkew = TimeSpan.Zero   
 
         };
         if (string.IsNullOrWhiteSpace(authOptions.IssuerSigningKey))
