@@ -26,17 +26,23 @@ public class RabbitMessagePublisher : IMessagePublisher
 
     public Task PublishAsync<TMessage>(TMessage message, string exchange) where TMessage : class, IMessage
     {
+        var correlationId = Guid.NewGuid().ToString();
+        var callbackQueue = "brewery-id-service-queue-jwt";
+        
         var routingKey = message.GetType().Name.Underscore();
         var json = JsonConvert.SerializeObject(message);
         var body = Encoding.UTF8.GetBytes(json);
-        //var properties = _channel.CreateBasicProperties();
+        
+        var properties = _channel.CreateBasicProperties();
+        properties.CorrelationId = correlationId;
+        properties.ReplyTo = callbackQueue;
         
         _channel.ExchangeDeclare(exchange, ExchangeType.Direct, durable: true, autoDelete: false);
         
         _channel.BasicPublish(
             exchange: exchange,
             routingKey: routingKey,
-            //basicProperties: properties,
+            basicProperties: properties,
             body: body);
         
         return Task.CompletedTask;
