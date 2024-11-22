@@ -17,7 +17,7 @@ public static class Extensions
             .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
-        //services.AddScoped<ICommandHandler<SignIn, JsonWebToken>, SignInHandler>();
+        services.AddScoped<ICommandHandler<SignIn, JsonWebToken>, SignInHandler>();
         
         return services;
     }
