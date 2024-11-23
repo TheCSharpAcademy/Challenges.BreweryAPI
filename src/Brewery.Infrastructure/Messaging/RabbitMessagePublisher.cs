@@ -79,7 +79,7 @@ public class RabbitMessagePublisher : IMessagePublisher
         var tcs = new TaskCompletionSource<TResult>();
         
         var consumer = new AsyncEventingBasicConsumer(channel);
-        consumer.ReceivedAsync += (model, ea) =>
+        consumer.ReceivedAsync += async (model, ea) =>
         {
             _logger.LogInformation("Start consuming on message received");
             if (ea.BasicProperties.CorrelationId == correlationId)
@@ -89,14 +89,13 @@ public class RabbitMessagePublisher : IMessagePublisher
 
                 tcs.SetResult(responseMessage);
 
-                channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, false);
+                await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, false);
             }
-
-            return Task.CompletedTask;
+            
         };
         
         await channel.BasicConsumeAsync(queue: callbackQueue, autoAck: false, consumer: consumer);
-
+        
         return await tcs.Task;
     }
 }

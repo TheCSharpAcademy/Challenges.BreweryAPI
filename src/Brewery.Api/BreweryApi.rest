@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
     "email": "user@brewery.com",
-    "password": "secretBeer"
+    "password": "secret"
 }
 
 ### Get Account Info
