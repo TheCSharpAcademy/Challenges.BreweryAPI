@@ -1,6 +1,7 @@
 ﻿using Brewery.Abstractions.Postgres;
 using Brewery.Domain.Repositories;
 using Brewery.Infrastructure.EF.Repositories;
+using Brewery.Infrastructure.EF.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,8 @@ public static class Extensions
         services.AddScoped<IBeerStockRepository, BeerStockRepository>();
         services.AddScoped<IBeerQuoteRepository, BeerQuoteRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        
+        services.AddScoped<BreweryUnitOfWork>();
         
         var postgresOptions = services.GetOptions<PostgresOptions>("postgres");
         services.AddDbContext<BreweryDbContext>(options =>

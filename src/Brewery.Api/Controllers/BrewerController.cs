@@ -3,6 +3,7 @@ using Brewery.Abstractions.Queries;
 using Brewery.Application.Commands;
 using Brewery.Application.DTO;
 using Brewery.Application.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brewery.Api.Controllers;

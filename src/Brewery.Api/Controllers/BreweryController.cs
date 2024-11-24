@@ -27,6 +27,7 @@ public class BreweryController : BaseController
         return OkOrNotFound(brewery);
     }
     
+    [Authorize]
     [HttpGet("{breweryId:guid}/beers")]
     public async Task<ActionResult<IEnumerable<BeerDto>>> Browse(Guid breweryId)
     {
